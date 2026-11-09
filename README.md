@@ -26,6 +26,8 @@ Instala las dependencias y ejecuta el bot:
 
 El `Dockerfile` crea una imagen para `linux/amd64` y `linux/arm64`. GitHub Actions publica la imagen en GHCR al hacer push. No despliega en la Raspberry Pi: la actualización del stack se hace manualmente desde Dockge (interfaz web de Docker), descargando la nueva imagen y recreando el contenedor.
 
+Al detener o recrear el contenedor, Docker envía `SIGTERM`; el bot cierra su conexión con Discord antes de salir. Compose espera hasta 30 segundos para que termine el cierre.
+
 La Raspberry debe poder descargar la imagen de GHCR. Si el paquete es privado, inicia sesión en GHCR en la Raspberry con un token que tenga permiso `read:packages`; si es público, no hace falta.
 
 ## Variables de entorno
