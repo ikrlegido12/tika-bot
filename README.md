@@ -11,5 +11,6 @@ Librerías: discord.py, python-dotenv
 ## Variables de entorno
 
 ## Créditos
-Ikrlegido12 - Desarrollador y host del bot
- - Desarrollador
+ikrlegido12 - Desarrollador y host del bot
+
+treyunova301 - Desarrollador
