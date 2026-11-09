@@ -6,7 +6,10 @@ from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).resolve().parents[1] / ".env")
 token = os.getenv('DISCORD_TOKEN')
-client_id = os.getenv('CLIENT_ID')  
+if not token:
+    raise RuntimeError("Missing required environment variable: DISCORD_TOKEN")
+
+client_id = os.getenv('CLIENT_ID')
 class MyClient(discord.Client):
     async def on_ready(self):
         print(f'Logged on as {self.user}!')

@@ -1,0 +1,7 @@
+services:
+  bot:
+    image: ghcr.io/ikrlegido12/tika-bot:latest
+    container_name: tika-bot
+    restart: unless-stopped
+    env_file:
+      - .env
