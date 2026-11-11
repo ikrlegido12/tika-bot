@@ -2,7 +2,7 @@
 Bot de Discord con DiscordPY para CDPC
 
 ## Prerequisitos
-- Python 3.12 para Docker. para desarrollo local, Python 3.8 o superior
+- Python 3.12
 ## Requisitos
 Librerías: discord.py, python-dotenv (se instalan desde `requirements.txt`)
 
@@ -12,7 +12,29 @@ Crea un archivo `.env` en la raíz con las variables necesarias:
 
 ```env
 DISCORD_TOKEN=tu_token_del_bot
-CLIENT_ID=tu_client_id
+TEST_GUILD_ID=id_de_tu_servidor_de_pruebas
+DEV_USER_IDS=123456789012345678,987654321098765432
+```
+
+`TEST_GUILD_ID` es opcional. Si se configura, los slash commands se sincronizan
+solo con ese servidor y los cambios aparecen rápidamente durante el desarrollo.
+Si se deja vacío, se sincronizan globalmente; Discord puede tardar un tiempo en
+propagarlos. Invita la aplicación con los scopes `bot` y `applications.commands`.
+
+El código está organizado bajo `src/`: `commands/` contiene comandos, `events/`
+contendrá listeners de Discord y `utils/` las funciones auxiliares compartidas.
+
+Puedes crear embeds reutilizables con `create_embed`:
+
+```python
+from utils import create_embed
+
+embed = create_embed(
+    title="Ticket creado",
+    description="El equipo de soporte te atenderá pronto.",
+    fields=[("Número", "#42", True)],
+    footer="Tika Bot",
+)
 ```
 
 Instala las dependencias y ejecuta el bot:
@@ -32,7 +54,12 @@ La Raspberry debe poder descargar la imagen de GHCR. Si el paquete es privado, i
 
 ## Variables de entorno
 - `DISCORD_TOKEN` (obligatoria): token del bot de Discord.
-- `CLIENT_ID` (opcional): ID de la aplicación de Discord.
+- `TEST_GUILD_ID` (opcional): ID del servidor donde sincronizar comandos para pruebas.
+- `DEV_USER_IDS` (opcional): IDs de usuario de Discord autorizados para `/restart`, separados por comas. Si está vacío, nadie puede usarlo.
+
+`/restart` cierra el bot ordenadamente. En Docker, la política `restart: unless-stopped`
+de Compose vuelve a iniciar el contenedor. Al ejecutarlo localmente, el proceso termina
+y tendrás que iniciarlo de nuevo manualmente.
 
 ## Créditos
 ikrlegido12 - Desarrollador y host del bot
