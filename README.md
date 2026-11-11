@@ -23,6 +23,8 @@ propagarlos. Invita la aplicación con los scopes `bot` y `applications.commands
 
 El código está organizado bajo `src/`: `commands/` contiene comandos, `events/`
 contendrá listeners de Discord y `utils/` las funciones auxiliares compartidas.
+El bot muestra en la consola las interacciones recibidas, comandos completados,
+errores de comandos y fallos de eventos. No registra el contenido de mensajes.
 
 Puedes crear embeds reutilizables con `create_embed`:
 
